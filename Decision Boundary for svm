@@ -1,0 +1,27 @@
+import numpy as np 
+import matplotlib.pyplot as plt
+import seaborn as sns 
+#defining the decision function 
+def decision_func(clf,ax=None,plot_support=True):
+  if ax is None:
+    ax = plt.gca()
+  xlim = ax.get_xlim()
+  ylim = ax.get_ylim()
+  #creating the grid to evaluate the model 
+  x = np.linspace(xlim[0],xlim[1],30)
+  y = np.linspace(ylim[0],ylim[1],30)
+  Y,X = np.meshgrid(y,x)
+  xy = np.vstack([X.ravel(), Y.ravel()]).T
+  P = clf.decision_function(xy).reshape(X.shape)
+
+  #plotting the decision boundary and margins 
+  ax.contour(X, Y, P, colors='k',
+  levels=[-1, 0, 1], alpha=0.5,
+  linestyles=['--', '-', '--'])
+  # plot support vectors
+  if plot_support:
+   ax.scatter(clf.support_vectors_[:, 0],
+   clf.support_vectors_[:, 1],
+   s=300, linewidth=1, facecolors='none');
+  ax.set_xlim(xlim)
+  ax.set_ylim(ylim)
