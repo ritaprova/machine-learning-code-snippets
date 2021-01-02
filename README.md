@@ -1,1 +1,1 @@
-# short cuts for machine learning codes 
+# short cuts for machine learning codes and plots
